@@ -1,7 +1,6 @@
 use directories::BaseDirs;
 use serde::{Deserialize, Serialize};
 use std::io::{ErrorKind, Write};
-use std::path::Path;
 use std::{cmp, fs::File, io::Read};
 use sysinfo::{Networks, System};
 #[derive(Deserialize, Serialize)]
@@ -108,14 +107,14 @@ fn load_data(data: &mut Vec<String>, config: &Config, sys: &System) {
     if !config.network.is_empty() {
         data.push(format!("{} : {} ", config.network, ""));
         let net = Networks::new_with_refreshed_list();
-        let mut i = 0;
+        let mut _i = 0;
         for (interface, netd) in &net {
             data.push(format!(
                 "  {} : {:?} ",
                 interface,
                 netd.ip_networks()[0].addr.to_string()
             ));
-            i += 1;
+            _i += 1;
         }
     }
 }
